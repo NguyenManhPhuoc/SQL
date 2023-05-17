@@ -1,0 +1,24 @@
+--Sử dụng CSDL Quản lý TT Tin học
+--1. Hãy cho biết mỗi lớp đào tạo chứng chỉ gì(tên chứng chỉ) và có bn học viên đăng kí
+SELECT l.MALOP,l.TENLOP,c.TENCHUNGCHI,
+	COUNT(hl.MAHOCVIEN) AS SOHOCVIEN
+FROM CHUNGCHI AS c
+    JOIN LOPHOC AS l ON c.MACHUNGCHI = l.MACHUNGCHI
+	LEFT JOIN HOCVIEN_LOPHOC AS hl ON l.MALOP = hl.MALOP
+GROUP BY l.MALOP,l.TENLOP,c.TENCHUNGCHI
+--2. Hãy cho biết mỗi chứng chỉ hiện có bao nhiêu lớp
+SELECT c.MACHUNGCHI,c.TENCHUNGCHI,
+	COUNT(l.MALOP) AS SOLOP
+FROM CHUNGCHI AS c
+	LEFT JOIN LOPHOC AS l ON c.MACHUNGCHI = l.MACHUNGCHI
+GROUP BY c.MACHUNGCHI,c.TENCHUNGCHI
+--3.Hãy cho biết mỗi chứng chỉ hiện có bao nhiêu lớp khai giảng vào tháng 12
+SELECT c.MACHUNGCHI,c.TENCHUNGCHI
+FROM CHUNGCHI AS c 
+		LEFT JOIN LOPHOC AS l ON c.MACHUNGCHI = l.MACHUNGCHI
+		AND MONTH(l.NGAYKHAIGIANG)=12
+GROUP BY c.MACHUNGCHI,c.TENCHUNGCHI
+
+
+
+
